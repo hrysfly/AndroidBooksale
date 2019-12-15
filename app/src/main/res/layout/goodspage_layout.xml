@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.example.booksale.toolbar.MyToolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:minHeight="?attr/actionBarSize"
+        app:isShowSearchView="false"
+        app:leftImageButton="@drawable/back"
+        app:title="商品详情"
+        >
+    </com.example.booksale.toolbar.MyToolbar>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ScrollView
+            android:id="@+id/scrollview_goods"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+                <RelativeLayout
+                    android:id="@+id/goodsRelativelayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+                    <com.youth.banner.Banner
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:id="@+id/banner_goods"
+
+                        >
+                    </com.youth.banner.Banner>
+                    <TextView
+                        android:id="@+id/goods_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="商品名称"
+                        android:textSize="30sp"
+                        android:textColor="@color/red"
+                        android:layout_below="@id/banner_goods"/>
+                    <TextView
+                        android:id="@+id/goods_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="商品价格"
+                        android:textSize="30sp"
+                        android:textColor="@color/red"
+                        android:layout_below="@id/goods_name"
+                        android:gravity="right"/>
+
+
+                        <TextView
+                            android:id="@+id/label_author"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="商品作者:"
+                            android:textSize="20sp"
+                            android:layout_below="@id/goods_price"
+                            >
+                        </TextView>
+
+
+                        <TextView
+                            android:id="@+id/goods_author"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="商品作者"
+                            android:textSize="20sp"
+                            android:textColor="@color/red"
+                            android:layout_below="@id/goods_price"
+                            android:layout_toRightOf="@id/label_author"
+                            />
+
+
+                    <TextView
+                        android:id="@+id/label_publish"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="商品出版社:"
+                        android:textSize="20sp"
+                        android:layout_below="@id/label_author"
+                        android:layout_marginTop="20dp"
+                        >
+                    </TextView>
+                    <TextView
+                        android:layout_toRightOf="@id/label_publish"
+                        android:id="@+id/goods_publish"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="商品出版社"
+                        android:textSize="20sp"
+                        android:textColor="@color/red"
+                        android:layout_below="@id/goods_author"
+                        android:layout_marginTop="20dp"
+
+                        />
+                    <ImageView
+                        android:id="@+id/goods_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:src="@drawable/banner1"
+                        android:layout_below="@id/label_publish"
+                        android:layout_marginTop="20dp"/>
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/goods_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:text="《斗破苍穹》是一本连载于起点中文网的古装玄幻小说，作者是起点白金作家天蚕土豆（李虎），已完结。这里是属于斗气的世界，没有花俏艳丽的魔法，有的，仅仅是繁衍到巅峰的斗气！
+心潮澎湃，无限幻想，迎风挥击千层浪，少年不败热血！
+新书等级制度：斗之气，斗者，斗师，大斗师，斗灵，斗王，斗皇，斗宗，斗尊，斗圣，斗帝。"
+                        android:layout_below="@id/goods_photo"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="50dp"
+                        android:text=" "
+                        android:layout_below="@id/goods_description"/>
+
+
+                </RelativeLayout>
+            </ScrollView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/red"
+                android:layout_alignParentBottom="true"
+                >
+                <Button
+                    android:id="@+id/btn_1"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="加入购物车"
+                    android:textSize="30sp"
+                    android:textColor="@color/white"
+                    android:background="#FFE600"
+                    >
+
+                </Button>
+                <Button
+                    android:id="@+id/btn_2"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="购买"
+                    android:textSize="30sp"
+                    android:textColor="@color/white"
+                    android:background="@color/red"
+                    >
+
+                </Button>
+            </LinearLayout>
+        </RelativeLayout>
+    </FrameLayout>
+
+
+
+</LinearLayout>

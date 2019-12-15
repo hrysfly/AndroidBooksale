@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <ImageView
+        android:src="@drawable/settings"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:id="@+id/recycle_item_image"
+        android:scaleType="centerInside"/>
+
+    <TextView
+        android:layout_below="@id/recycle_item_image"
+        android:layout_alignLeft="@id/recycle_item_image"
+        android:id="@+id/recycle_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/red"
+        android:text="书名"
+        />
+
+    <TextView
+        android:layout_below="@id/recycle_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/recycle_item_author"
+        android:layout_gravity="center_vertical"
+        android:textSize="15sp"
+        android:text="作者"
+        />
+    <TextView
+        android:id="@+id/recycle_item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recycle_item_image"
+        android:layout_alignRight="@id/recycle_item_image"
+        android:text="价格"/>
+</RelativeLayout>

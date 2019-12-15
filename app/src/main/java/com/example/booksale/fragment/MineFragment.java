@@ -11,16 +11,23 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.booksale.R;
-import com.example.booksale.bean.Create_Instances;
 
-public class MineFragment extends BaseFragment {
 
-    public static MineFragment newInstance(String param) {
+public class MineFragment /*extends BaseFragment*/ extends Fragment {
+
+   /* public static MineFragment newInstance(String param) {
         MineFragment fragment = new MineFragment();
         Bundle bundle = new Bundle();
         bundle.putString("args",param);
         fragment.setArguments(bundle);
         return fragment;
+    }*/
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_mine,container,false);
+        return view;
     }
 
     /*@Nullable
@@ -34,10 +41,11 @@ public class MineFragment extends BaseFragment {
         return view;
     }*/
 
-    private boolean isPrepared;
-    /**
+
+    /*private boolean isPrepared;
+    *//**
      * 是否已被加载过一次，第二次就不再去请求数据了
-     */
+     *//*
     private boolean mHasLoadedOnce;
     TextView textView;
     @Nullable
@@ -59,9 +67,9 @@ public class MineFragment extends BaseFragment {
 
         return mView;
     }
-    /**
+    *//**
      * 初始化控件
-     */
+     *//*
     private void initView() {
 
     }
@@ -73,5 +81,5 @@ public class MineFragment extends BaseFragment {
         }
         //填充各控件的数据
         mHasLoadedOnce = true;
-    }
+    }*/
 }

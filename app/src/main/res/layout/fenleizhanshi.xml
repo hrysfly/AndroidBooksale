@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <ImageView
+        android:src="@drawable/settings"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/fenleizhanshi_image"
+        android:scaleType="centerInside"/>
+
+    <TextView
+        android:layout_marginLeft="20dp"
+        android:layout_alignTop="@id/fenleizhanshi_image"
+        android:layout_toRightOf="@id/fenleizhanshi_image"
+        android:id="@+id/fenleizhanshi_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textColor="@color/red"
+        android:text="书名"
+        />
+
+    <TextView
+        android:layout_marginLeft="20dp"
+        android:layout_below="@id/fenleizhanshi_name"
+        android:layout_toRightOf="@id/fenleizhanshi_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fenleizhanshi_author"
+        android:layout_gravity="center_vertical"
+        android:textSize="15sp"
+        android:text="作者"
+        />
+    <TextView
+        android:textSize="30sp"
+        android:textColor="@color/red"
+        android:id="@+id/fenleizhanshi_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/fenleizhanshi_name"
+        android:layout_alignParentRight="true"
+        android:text="价格"/>
+</RelativeLayout>

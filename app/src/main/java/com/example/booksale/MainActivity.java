@@ -1,11 +1,13 @@
 package com.example.booksale;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTabHost;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +18,7 @@ import android.widget.TextView;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
-import com.example.booksale.bean.Tab;
+
 import com.example.booksale.fragment.CartFragment;
 import com.example.booksale.fragment.CategoryFragment;
 import com.example.booksale.fragment.HomeFragment;
@@ -26,37 +28,59 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener {
-    private FragmentTabHost mTabhost;
-    private LayoutInflater minflater;
     private FragmentManager mfragmentManager;
-    private FragmentTransaction mTransaction;
-    private ArrayList<Fragment> fragments;
     private BottomNavigationBar bottomNavigationBar;
+
+
     private int lastSelectedPosition = 0;
     private HomeFragment homeFragment;
     private CategoryFragment categoryFragment;
     private CartFragment cartFragment;
     private MineFragment mineFragment;
-    private String TAG = MainActivity.class.getSimpleName();
 
-    //  List<Tab> mtablist = new ArrayList<>(4);
+    private Toolbar toolbar;
+
+    private String TAG = MainActivity.class.getSimpleName();
+    private Bundle bundle;
+    private String user;
+
+    //FragmentTransaction 一个事物只能被提交一次，不可以重复提交，可以使用局部变量进行提交，尽量避免使用成员变量。
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mfragmentManager = getSupportFragmentManager();
+        if (savedInstanceState!=null){
+            homeFragment = (HomeFragment) mfragmentManager.findFragmentByTag("home");
+            cartFragment = (CartFragment) mfragmentManager.findFragmentByTag("cart");
+            categoryFragment = (CategoryFragment) mfragmentManager.findFragmentByTag("category");
+            mineFragment = (MineFragment) mfragmentManager.findFragmentByTag("mine");
+
+            /*使用此方法避免重影*/
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        user = getIntent().getStringExtra("username");
+        /*获取到Login传递过来的用户名值*/
+        /*bundle = new Bundle();
+        bundle.putString("username", user);
+        System.out.println("0");*/
+
         bottomNavigationBar = findViewById(R.id.bottom_navigation_bar);
+
+
         init();
 
     }
 
     private void init() {
-        bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
+        bottomNavigationBar.setMode(BottomNavigationBar.MODE_SHIFTING);
         //设计按钮模式
         bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);
-        bottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.home,"主页")).setActiveColor(R.color.orange)
-                            .addItem(new BottomNavigationItem(R.mipmap.comments,"分类")).setActiveColor(R.color.blue)
+        bottomNavigationBar.addItem(new BottomNavigationItem(R.mipmap.home,"主页"))
+                            .addItem(new BottomNavigationItem(R.mipmap.comments,"分类"))
                             .addItem(new BottomNavigationItem(R.mipmap.cart,"购物车")).setActiveColor(R.color.red)
-                            .addItem(new BottomNavigationItem(R.mipmap.account,"我的")).setActiveColor(R.color.green)
+                            .addItem(new BottomNavigationItem(R.mipmap.account,"我的"))
                             .setFirstSelectedPosition(lastSelectedPosition)
                             .initialise();
         bottomNavigationBar.setTabSelectedListener(this);
@@ -65,50 +89,94 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
 
     private void setDefaultFragment() {
         mfragmentManager = getSupportFragmentManager();
-        mTransaction = mfragmentManager.beginTransaction();
-        mTransaction.replace(R.id.fragment_content, HomeFragment.newInstance("主页"));
-        mTransaction.commit();
+        FragmentTransaction mft = mfragmentManager.beginTransaction();
+        homeFragment = new HomeFragment();
+        mft.replace(R.id.fragment_content,homeFragment /*HomeFragment.newInstance("主页")*/);
+        mft.commit();
     }
 
 
     @Override
     public void onTabSelected(int position) {
+        /*lastSelectedPosition  =  position;*/
         mfragmentManager = getSupportFragmentManager();
-        mTransaction = mfragmentManager.beginTransaction();
+        FragmentTransaction mft ;
+        mft = mfragmentManager.beginTransaction();
+        hideALL();
         switch (position){
             case 0 :
                 if (homeFragment == null){
-                    homeFragment = HomeFragment.newInstance("主页");
+                    //homeFragment = HomeFragment.newInstance("主页");
+                    homeFragment = new HomeFragment();
+                    /*homeFragment.setArguments(bundle);*/
+                    mft.add(R.id.fragment_content,homeFragment,"home");
                 }
-                mTransaction.replace(R.id.fragment_content,homeFragment);
+
+                    mft.show(homeFragment);
+
+                //mTransaction.replace(R.id.fragment_content,homeFragment);
                 break;
             case 1:
                 if (categoryFragment == null){
-                    categoryFragment=CategoryFragment.newInstance("分类");
+                    //categoryFragment=CategoryFragment.newInstance("分类");
+                    categoryFragment = new CategoryFragment();
+                    mft.add(R.id.fragment_content,categoryFragment,"category");
                 }
-                mTransaction.replace(R.id.fragment_content,categoryFragment);
+
+                mft.show(categoryFragment);
+                //mTransaction.replace(R.id.fragment_content,categoryFragment);
                 break;
             case 2:
                 if (cartFragment == null){
-                    cartFragment= CartFragment.newInstance("购物车");
+                    //cartFragment= CartFragment.newInstance("购物车");
+                    cartFragment = new CartFragment();
+                    mft.add(R.id.fragment_content,cartFragment,"cart");
                 }
-                mTransaction.replace(R.id.fragment_content,cartFragment);
+
+                mft.show(cartFragment);
+
+
+
+               // mTransaction.replace(R.id.fragment_content,cartFragment);
                 break;
             case 3:
                 if (mineFragment == null) {
-                    mineFragment=MineFragment.newInstance("我的");
+                    //mineFragment=MineFragment.newInstance("我的");
+                    mineFragment = new MineFragment();
+                    mft.add(R.id.fragment_content,mineFragment,"mine");
                 }
-                mTransaction.replace(R.id.fragment_content,mineFragment);
+                mft.show(mineFragment);
+
+
+                //mTransaction.replace(R.id.fragment_content,mineFragment);
                 break;
             default:
                     break;
         }
-        mTransaction.commit();
+        mft.commit();
     }
-
+    private void hideALL(){
+        FragmentTransaction mft;
+        mft = mfragmentManager.beginTransaction();
+        if (homeFragment != null){
+            mft.hide(homeFragment);
+        }
+        if (cartFragment != null){
+            mft.hide(cartFragment);
+        }
+        if (categoryFragment != null){
+            mft.hide(categoryFragment);
+        }
+        if (mineFragment != null){
+            mft.hide(mineFragment);
+        }
+        mft.commit();
+    }
     @Override
     public void onTabUnselected(int position) {
         Log.d(TAG, "onTabUnselected() called with: " + "position = [" + position + "]");
+
+
     }
 
     @Override
@@ -116,38 +184,4 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
 
     }
 
-
-
-    /*private void initTab() {
-        Tab tab_home = new Tab(R.string.home,R.mipmap.home,HomeFragment.class);
-        Tab tab_cart = new Tab(R.string.cart,R.mipmap.cart, CartFragment.class);
-        Tab tab_category = new Tab(R.string.category,R.mipmap.comments, CategoryFragment.class);
-        Tab tab_mine = new Tab(R.string.mine,R.mipmap.account, MineFragment.class);
-
-        mtablist.add(tab_home);
-        mtablist.add(tab_cart);
-        mtablist.add(tab_category);
-        mtablist.add(tab_mine);
-
-        minflater = LayoutInflater.from(this);
-        mTabhost = findViewById(R.id.tab_host);
-        mTabhost.setup(this,getSupportFragmentManager(),R.id.fragment_content);
-
-        for (Tab tab : mtablist){
-            TabHost.TabSpec tabSpec = mTabhost.newTabSpec(getString(tab.getTitle()));
-            tabSpec.setIndicator(bulidIndicator(tab));
-            mTabhost.addTab(tabSpec,tab.getFragmen(),null);
-        }
-    }
-    private View bulidIndicator(Tab tab){
-
-        View view=minflater.inflate(R.layout.indicator_tab,null);
-        ImageView img_tab = findViewById(R.id.icon_tab);
-        TextView tv_indicator = findViewById(R.id.tv_indicator);
-
-        img_tab.setBackgroundResource(tab.getIcon());
-        tv_indicator.setText(tab.getTitle());
-
-        return view;
-    }*/
 }
